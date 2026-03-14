@@ -114,9 +114,10 @@ workflow SAGE_APPEND {
             def bams = [tumor_rna_bam]
             def bais = [tumor_rna_bai]
 
-            def purple_smlv_vcf = file(purple_dir).resolve("${tumor_dna_id}.purple.germline.vcf.gz")
+            def purple_smlv_vcf     = file(purple_dir).resolve("${tumor_dna_id}.purple.germline.vcf.gz")
+            def purple_smlv_vcf_tbi = file(purple_dir).resolve("${tumor_dna_id}.purple.germline.vcf.gz.tbi")
 
-            return [meta_append, purple_smlv_vcf, bams, bais, []]
+            return [meta_append, purple_smlv_vcf, purple_smlv_vcf_tbi, bams, bais, []]
         }
 
     // Run process
@@ -188,9 +189,10 @@ workflow SAGE_APPEND {
                 redux_tsvs = tumor_dna_redux_tsv
             }
 
-            def purple_smlv_vcf = file(purple_dir).resolve("${tumor_dna_id}.purple.somatic.vcf.gz")
+            def purple_smlv_vcf     = file(purple_dir).resolve("${tumor_dna_id}.purple.somatic.vcf.gz")
+            def purple_smlv_vcf_tbi = file(purple_dir).resolve("${tumor_dna_id}.purple.somatic.vcf.gz.tbi")
 
-            return [meta_append, purple_smlv_vcf, bams, bais, redux_tsvs]
+            return [meta_append, purple_smlv_vcf, purple_smlv_vcf_tbi, bams, bais, redux_tsvs]
         }
 
     // Run process

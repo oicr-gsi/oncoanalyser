@@ -34,6 +34,8 @@ process PAVE_SOMATIC {
 
     def xmx_mod = task.ext.xmx_mod ?: 0.75
 
+    def jvm_args = task.ext.jvm_args ?: ''
+
     def log_level_arg = task.ext.log_level ? "-log_level ${task.ext.log_level}" : ''
 
     def gnomad_args
@@ -51,6 +53,7 @@ process PAVE_SOMATIC {
     """
     pave \\
         -Xmx${Math.round(task.memory.bytes * xmx_mod)} \\
+        ${jvm_args} \\
         ${args} \\
         -sample ${meta.sample_id} \\
         -input_vcf ${sage_vcf} \\
