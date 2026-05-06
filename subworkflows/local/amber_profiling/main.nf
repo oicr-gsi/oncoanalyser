@@ -49,13 +49,12 @@ workflow AMBER_PROFILING {
         }
         .branch { meta, tumor_bam, tumor_bai, normal_bam, normal_bai, donor_bam, donor_bai ->
             def has_existing = Utils.hasExistingInput(meta, Constants.INPUT.AMBER_DIR)
+            def in_purity_estimate_mode = Utils.getEnumFromString(params.purity_estimate_mode, Constants.RunMode) != null
 
+            def runnable_standard    = !in_purity_estimate_mode && tumor_bam && !has_existing
+            def runnable_purity_est  = in_purity_estimate_mode  && normal_bam
 
-            // TODO(SW): must improve handling through separation of sample information in meta; currently unable to provide ccfDNA AMBER directory in samplesheet
-            def longitudinal_sample = Utils.getTumorDnaSample(meta).containsKey('longitudinal_sample_id')
-
-            runnable: tumor_bam && (!has_existing || longitudinal_sample)
-
+            runnable: runnable_standard || runnable_purity_est
 
             skip: true
                 return meta

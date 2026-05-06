@@ -44,7 +44,7 @@ workflow WISP_ANALYSIS {
 
             def runnable
             if (purity_estimate_mode === Constants.RunMode.WGTS) {
-                runnable = primary_purple_dir && primary_amber_dir && sage_append_dir && amber_dir && cobalt_dir
+                runnable = primary_purple_dir && sage_append_dir && cobalt_dir
             } else {
                 runnable = primary_purple_dir && sage_append_dir
             }
