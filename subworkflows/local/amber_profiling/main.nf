@@ -51,10 +51,9 @@ workflow AMBER_PROFILING {
             def has_existing = Utils.hasExistingInput(meta, Constants.INPUT.AMBER_DIR)
             def in_purity_estimate_mode = params.purity_estimate_mode != null && Utils.getEnumFromString(params.purity_estimate_mode, Constants.RunMode) != null
 
-            def runnable_standard    = !in_purity_estimate_mode && tumor_bam && !has_existing
-            def runnable_purity_est  = in_purity_estimate_mode  && normal_bam
+            def runnable_standard = !in_purity_estimate_mode && tumor_bam && !has_existing
 
-            runnable: runnable_standard || runnable_purity_est
+            runnable: runnable_standard
 
             skip: true
                 return meta

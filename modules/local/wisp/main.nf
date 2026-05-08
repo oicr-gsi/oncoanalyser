@@ -45,6 +45,12 @@ process WISP {
         cobalt_dir_arg      = ''
         gc_ratio_min_arg    = '-gc_ratio_min 0.4'
         write_types_arg     = "-write_types 'SOMATIC_DATA;SOMATIC_PLOT'"
+    } else if (purity_estimate_mode) {
+        purity_methods      = "'SOMATIC_VARIANT;COPY_NUMBER'"
+        amber_dir_arg       = ''
+        cobalt_dir_arg      = "-cobalt_dir ${cobalt_dir}"
+        gc_ratio_min_arg    = ''
+        write_types_arg     = '-write_types ALL'
     } else {
         purity_methods      = "'SOMATIC_VARIANT;AMBER_LOH;COPY_NUMBER'"
         amber_dir_arg       = '-amber_dir amber_dir__prepared/'
